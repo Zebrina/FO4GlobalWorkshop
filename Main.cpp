@@ -1,8 +1,3 @@
-#include <unordered_map>
-#include <fstream>
-#include <string>
-#include <sstream>
-
 #include "f4se/PluginAPI.h"
 #include "f4se/GameAPI.h"
 #include "f4se_common/f4se_version.h"
@@ -17,21 +12,8 @@ IDebugLog gLog("GlobalWorkshop.log");
 
 struct {
 	PluginHandle pluginHandle = kPluginHandle_Invalid;
-	F4SEMessagingInterface* messaging = nullptr;
 	F4SEPapyrusInterface* papyrus = nullptr;
 } global;
-
-void HandleF4SEMessage(F4SEMessagingInterface::Message* msg) {
-	switch (msg->type) {
-	case F4SEMessagingInterface::kMessage_GameDataReady:
-		DataHandler* dataHandler = *g_dataHandler;
-		if (!dataHandler) {
-			return;
-		}
-
-		break;
-	}
-}
 
 TESObjectREFR* FindWorkshop(StaticFunctionTag*, BGSLocation* location) {
 	_MESSAGE("%s", __FUNCSIG__);
@@ -112,16 +94,6 @@ extern "C" {
 			return false;
 		}
 
-		global.messaging = (F4SEMessagingInterface*)f4se->QueryInterface(kInterface_Messaging);
-		if (!global.messaging) {
-			_MESSAGE("\tcouldn't get messaging interface");
-			return false;
-		}
-		if (global.messaging->interfaceVersion < F4SEMessagingInterface::kInterfaceVersion) {
-			_MESSAGE("\tmessaging interface too old (%d expected %d)", global.messaging->interfaceVersion, F4SEMessagingInterface::kInterfaceVersion);
-			return false;
-		}
-
 		global.papyrus = (F4SEPapyrusInterface*)f4se->QueryInterface(kInterface_Papyrus);
 		if (!global.papyrus) {
 			_MESSAGE("\tcouldn't get papyrus interface");
@@ -146,7 +118,6 @@ extern "C" {
 	bool F4SEPlugin_Load(const F4SEInterface * f4se) {
 		_MESSAGE("F4SEPlugin_Load begin");
 
-		global.messaging->RegisterListener(global.pluginHandle, "F4SE", HandleF4SEMessage);
 		global.papyrus->Register(RegisterPapyrusFunctions);
 
 		_MESSAGE("F4SEPlugin_Load end");
