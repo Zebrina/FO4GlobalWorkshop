@@ -1,0 +1,8 @@
+game: Fallout4
+release: false
+final: false
+output: C:\Users\sabri\AppData\Local\ModOrganizer\Fallout 4\mods\Global Workshop\Scripts\
+imports:
+    - C:\Users\sabri\AppData\Local\ModOrganizer\Fallout 4\mods\Global Workshop\Scripts\Source\User
+    - C:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\User
+    - C:\Games\Steam\SteamApps\common\Fallout 4\Data\Scripts\Source\Base
