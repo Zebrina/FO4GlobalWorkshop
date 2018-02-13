@@ -95,7 +95,8 @@
       <ModuleDefinitionFile>Exports.def</ModuleDefinitionFile>
     </Link>
     <PreBuildEvent>
-      <Command>mklink /J "$(LOCALAPPDATA)\ModOrganizer\Fallout 4\mods\$(SolutionName)_$(ProjectName)\" "$(ProjectDir)Data\"</Command>
+      <Command>set mo2_target="$(LOCALAPPDATA)\ModOrganizer\Fallout 4\mods\$(SolutionName)_$(ProjectName)\"
+If NOT exist %mo2_target% mklink /J %mo2_target% "$(ProjectDir)Data\"</Command>
       <Message>Setting up link to Mod Organizer mod directory.</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -134,7 +135,8 @@
       <Message>Copying DLL to data directory.</Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>mklink /J "$(LOCALAPPDATA)\ModOrganizer\Fallout 4\mods\$(SolutionName)_$(ProjectName)\" "$(ProjectDir)Data\"</Command>
+      <Command>set mo2_target="$(LOCALAPPDATA)\ModOrganizer\Fallout 4\mods\$(SolutionName)_$(ProjectName)\"
+If NOT exist %mo2_target% mklink /J %mo2_target% "$(ProjectDir)Data\"</Command>
       <Message>Setting up link to Mod Organizer mod directory.</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
